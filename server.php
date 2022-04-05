@@ -1,9 +1,9 @@
 <?php
 session_start();
-$servername = "sql102.epizy.com";
-$db_username = "epiz_28354383";
-$db_password = "ZflJogxxbEFlM";
-$database = "epiz_28354383_gloom";
+$servername = "sql208.epizy.com";
+$db_username = "epiz_31425947";
+$db_password = "5dSSX5hIR4";
+$database = "epiz_31425947_database";
 
 
 // initializing variables
@@ -15,7 +15,7 @@ $conn = mysqli_connect($servername, $db_username, $db_password, $database);
 
 
 
-define("URL", "http://testingit.epizy.com/register.php", false);
+define("URL", "http://jijaze.epizy.com/register.php", false);
 
 
 
@@ -224,7 +224,6 @@ $n = 'no';
 
 
 
-
                      if($status == $n){                                                                                             	  
   $_SESSION['use'] = $username;                                  
 $_SESSION['pass'] = $password;
@@ -257,10 +256,31 @@ setcookie("country",$country,time()+(86400 + 30),"/php/");
 echo "<script>window.location.href='index.php';</script>";
 
 
-}  
-
+}
  }
-                                                                                                                                                                                         	
+                                                              
+                                                              elseif ($status='part') {
+                                               if(!isset($rem)){
+$_SESSION['username'] = $username;                                  
+$_SESSION['password'] = $password;
+$_SESSION['country'] = $country;
+
+
+echo "<script>window.location.href='partners/index.php';</script>";
+         }
+else{
+
+
+setcookie("username", $username, time() + (86400*30),"/php/");
+setcookie("password",$password,time() +(86400 * 30),"/php/");
+setcookie("country",$country,time()+(86400 + 30),"/php/");
+// 86400 = 1 day
+
+echo "<script>window.location.href='partners/index.php';</script>";
+
+
+}                 
+                                                              }                                                                                                                           	
                                                                                                                                                                                                                                 	  //header('location: index.php');
                                                                                                                                                                                                                                         	}else {
                        
@@ -280,6 +300,9 @@ array_push($errors,"wrong password/username combination");
 
               ?>
                            
+
+
+
 
 
 

@@ -66,7 +66,7 @@ $ans=$row['ans'];
    } else {  
     //insert results from the form input
      ?>
-        <input class="form-control" name="tr" type="text" />
+        <input class="form-control" name="tr" type="text" required />
   <?php
 
       
@@ -118,7 +118,7 @@ $rewa=mysqli_query($conn,"insert into trivia2(quiz,ans,username,bonus) values('$
 
 $new_bal = $bal + 5;
 
-$query = mysqli_query($conn,"UPDATE users SET bal='$new_bal' WHERE username='$username'";
+$query = mysqli_query($conn,"UPDATE users SET bal='$new_bal' WHERE username='$username'");
 
 
 echo "<script>alert('you've been awarded ksh 5');</script>";
