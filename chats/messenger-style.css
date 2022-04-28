@@ -1,0 +1,695 @@
+
+body {
+    --default-font-color: #050505;  /* Color for text content of a message */
+
+    --default-accent-color: #038003; /* Accent color for icons */
+    --default-accent-color-alt: #015301; /* Alternate accent color for icons */
+
+    --btn-bgcolor: #202020; /* Background color for buttons */
+    --btn-bgcolor-active: #4d4c4c; /* Background color for buttons when active */
+    --btn-bgcolor-active-alt: salmon; /* Alternative hover color for buttons - primarily used when logged into the messenger */
+    --btn-bgcolor-disabled: #4d4d4d; /* Disabled button background color */
+    --btn-color: #e0e0e0; /* Color of text for buttons */
+
+    --bar-bgcolor: #a09e9e; /* Background color for any static bar (e.g. top nav-bar and message bar) */
+    
+    --msg-bgcolor: #d4d4d4; /* Background color for messages */
+    --msg-tag-bgcolor: #e0e0e0; /* Background color for tags */
+    --msg-tag-color: #050505;   /* Color for a tag's text */
+    --msg-break-color: #1f1f1f; /* hr color between messages */
+    --msg-name-color: #034e02; /* Color for name of user who sent message */
+    --msg-time-color: #202010; /* Color for message timestamp */
+    --msg-code-bgcolor: darkslategray; /* Color for a code tag within a message */
+    --msg-mention-color: #854057; /* Color for a background of a mention in a message */
+    --msg-delete-bgcolor: red;  /* Color of the background for delete buttons */
+    --msg-delete-color: #fafafa;    /* Color of text for the delete button on messages */
+}
+
+body.dark-mode {
+    --default-font-color: #fafafa;  /* Color for text content of a message */
+
+    --default-accent-color: lightsalmon; /* Accent color for icons */
+    --default-accent-color-alt: salmon; /* Alternate accent color for icons */
+
+    --btn-bgcolor: #c0c0c0; /* Background color for buttons */
+    --btn-bgcolor-active: #888888; /* Background color for buttons when active */
+    --btn-bgcolor-active-alt: darkgreen; /* Alternative hover color for buttons - primarily used when logged into the messenger */
+    --btn-bgcolor-disabled: #808080; /* Disabled button background color */
+    --btn-color: #fafafa; /* Color of text for buttons */
+
+    --bar-bgcolor: #202020; /* Background color for any static bar (e.g. top nav-bar and message bar) */
+    
+    --msg-bgcolor: #101010; /* Background color for messages */
+    --msg-tag-bgcolor: #202020; /* Background color for tags */
+    --msg-tag-color: #fafafa;   /* Color for a tag's text */
+    --msg-break-color: #c0c0c0; /* hr color between messages */
+    --msg-name-color: #30ce2d; /* Color for name of user who sent message */
+    --msg-time-color: #c0c0e0; /* Color for message timestamp */
+    --msg-code-bgcolor: darkslategray; /* Color for a code tag within a message */
+    --msg-mention-color: #854057; /* Color for a background of a mention in a message */
+    --msg-delete-bgcolor: #ff0000;  /* Color of the background for delete buttons */
+    --msg-delete-color: #fafafa;    /* Color of text for the delete button on messages */
+}
+
+html, body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100vw;
+
+    display: flex;
+    align-items: stretch;
+    overflow: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Not signed in banner */
+.oops-not-signed-in {
+    display: block;
+    top: 10px;;
+    padding: 10px;
+    width: 50%;
+    margin-top: 4%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid #afadad;
+    border-radius: 0;
+    text-align: center;
+    background-color: #880000;
+    color: #e0e0e0;
+    font-weight: bolder;
+}
+
+/* **************************************************************
+ *                          SIGN-IN BOX
+ * **************************************************************
+ */
+.modal-content {
+    background-color: #ffffff;
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px solid #afadad;
+    width: 50%;
+    min-width: 300px;
+    padding: 20px;
+}
+
+.modal-content h1 {
+    text-align: center;
+}
+
+.modal-content p {
+    text-align: center;
+}
+
+.modal-content label {
+    display: block;
+    text-align: center;
+}
+
+.modal-content input[type="text"] {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 10px;
+    transform: translate(-50%, 0);
+    height: 50px;
+    width: 90%;
+    border: 2px solid #afadad;
+    font-size: 20px;
+    padding: 15px;
+    background-color: #fafafa;
+}
+
+.modal-content .signupbtn {
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+    left: 50%;
+    top: 20px;
+    transform: translate(-50%, 0);
+    height: 50px;
+    width: 90%;
+    border: 2px solid #afadad;
+    font-size: 20px;
+    padding: 15px;
+    background-color: var(--btn-bgcolor);
+}
+
+.modal-content .signupbtn:hover {
+    background-color: var(--btn-bgcolor-active);
+    cursor: pointer;
+}
+
+/* **************************************************************
+ *                  BEGIN LOGGED-IN MESSAGE STUFF
+ * **************************************************************
+ */
+.flex-container {
+    display: flex;
+
+    flex-direction: column;
+    -ms-flex-direction: column;
+    -moz-flex-direction: column;
+    -webkit-flex-direction: column;
+
+    overflow-wrap: break-word;    /* For Mitchel */
+
+    padding: 0;
+    margin: 0;
+
+    width: 100%;
+}
+
+/* **************************************************************
+ *                     NAV BAR / HEADER THING
+ * **************************************************************
+ */
+.navbar {
+    order: 1;
+    background-color: var(--bar-bgcolor);
+    width: 100vw;
+    min-height: 50px;
+
+    display: flex;
+    
+    flex-direction: row;
+    -ms-flex-direction: row;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+
+    justify-content: space-evenly;
+
+    padding: 5px;
+    border-bottom: 2px solid #000000;
+}
+
+.navbar #welcome-message {
+    order: 1;
+    flex-grow: 1;
+
+    color: var(--default-font-color);
+    font-style: italic;
+    padding: 10px;
+}
+
+.navbar #nav-title {
+    order: 5;
+    /* flex-grow: 1; */
+
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--default-font-color);
+    /* text-align: center; */
+    display: none;
+}
+
+#settings-icon {
+    order: 7;
+    display: none;  /* JS will show icon if user can save settings */
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    padding: 0;
+    float: right;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+#settings-icon > circle:not(.no-fill) {
+    fill: var(--default-accent-color);
+}
+
+#settings-icon > line {
+    stroke: var(--default-accent-color);
+    stroke-width: 4px;
+    stroke-linecap: round;
+}
+
+#settings-icon:hover > line {
+    stroke: var(--default-accent-color-alt);
+}
+
+.navbar #logout-container {
+    order: 10;
+}
+
+.navbar #logout-container #logout-button {
+    float: right;
+    border: 0px;
+    border-radius: 4px;
+    height: 40px;
+    padding: 10px;
+    background-color: var(--btn-bgcolor);
+    color: var(--btn-color);
+}
+
+.navbar #logout-container #logout-button:hover {
+    cursor: pointer;
+    background-color: var(--btn-bgcolor-active-alt);
+    color: var(--default-font-color);
+}
+
+/* **************************************************************
+ *                     BOTTOM MESSAGE BAR
+ * **************************************************************
+ */
+.message-container {
+    order: 10;
+    background-color: var(--bar-bgcolor);
+    border-top: 2px solid #000000;
+
+    display: flex;
+    
+    flex-direction: row;
+    -ms-flex-direction: row;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+
+    /* align-content: space-between; */
+    align-items: flex-end;
+
+    padding: 5px;
+    min-height: 110px; /* Total height of mesage-box */
+}
+
+#message-box {
+    order: 1;
+    flex-grow: 1;
+    margin-right: 5px;
+    padding: 4px;
+    border: 0px;
+    border-radius: 4px;
+    font-family: Operator Mono A,Operator Mono B,Source Code Pro,Menlo,Consolas,Monaco,monospace;
+    height: 100px;
+    resize: none;;
+}
+
+button#send-button {
+    order: 10;
+    background-color: var(--btn-bgcolor);
+    border: 0px;
+    border-radius: 4px;
+    color: var(--btn-color);
+    height: 100px;
+}
+
+button#send-button:hover, #send-button:active {
+    background-color: var(--btn-bgcolor-active-alt);
+    color: var(--default-font-color);
+    cursor: pointer;
+}
+
+button#send-button:disabled {
+    background-color: var(--btn-bgcolor-disabled);
+    cursor: not-allowed;
+    color: var(--default-font-color);
+}
+
+.notification {
+    position: fixed;
+    right: 5vw;
+    bottom: 120px;
+    background-color: var(--bar-bgcolor);
+    font-family: Operator Mono A,Operator Mono B,Source Code Pro,Menlo,Consolas,Monaco,monospace;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    border: 3px solid red;
+    border-radius: 10px;
+    cursor: pointer;
+    display: none;
+    z-index: 100;
+}
+
+/* **************************************************************
+ *       CHAT CONTAINER - where the messages are displayed
+ * **************************************************************
+ */
+.chat-container {
+    order: 5;
+    flex-grow: 1;
+    overflow: auto;
+    align-items: stretch;
+
+    background-color: var(--msg-bgcolor);
+    width: 100%;
+}
+
+#loading-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--default-font-color);
+}
+
+.bottom {
+    height: 0px;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    color: var(--msg-bgcolor);
+}
+
+#chat-sub-container {
+    width: 100%;
+}
+
+/* Holds the messages */
+#chat-sub-container .name {
+    color: var(--msg-name-color);
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#chat-sub-container .time {
+    color: var(--msg-time-color);
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+#chat-sub-container .message {
+    color: var(--default-font-color);
+    margin: 0 10px 0 10px;
+    cursor: copy;
+    white-space: pre-line;
+}
+
+#chat-sub-container .message-break {
+    background-color: var(--msg-break-color);
+    border: 1px solid var(--msg-break-color);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    height: 2px;
+}
+
+.show-more {
+    position: relative;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Tag styling */
+.tags {
+    background-color: var(--msg-tag-bgcolor);
+    display: inline-block;
+    border-radius: 100px;
+    border: 3px solid;
+    color: var(--msg-tag-color);
+    /* text-shadow: 0 0 5px black; */
+    font-family: "Times New Roman", Times, serif;
+    padding: 3px 7px;
+    margin: 0 0 3px 10px;
+}
+
+.tags-container {
+    display: inline-block;
+    margin: 0 0 10px 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Delete button */
+.del-button {
+    display: inline-block !important;
+    background-color: var(--msg-delete-bgcolor) !important;
+    border: 1px solid var(--default-font-color);
+    color: var(--msg-delete-color);
+    margin-left: 10px;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.del-button:hover {
+    background-color: darkred !important;
+}
+
+.single-message:hover .del-button { 
+    visibility: visible;
+}
+
+.mention {
+    background-color: var(--msg-mention-color);
+    padding: 2px;
+}
+
+code { /* Also used in the settings box */
+    background-color: var(--msg-code-bgcolor);
+    color: #fafafa;
+    border-radius: 5px;
+    border-style: hidden;
+    padding: 0px 2px;
+}
+
+/* Message for "no messages" */
+.empty-message-container {
+    font-family: Operator Mono A,Operator Mono B,Source Code Pro,Menlo,Consolas,Monaco,monospace;
+    font-style: italic;
+    text-align: center;
+    padding: 30px;
+    color: white;
+}
+
+.empty-message-container a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#yes-messages {
+    cursor: pointer;
+}
+
+/* **************************************************************
+ *                         SETTINGS BOX
+ * **************************************************************
+ */
+#settings-modal {
+    display: none;
+    z-index: 1000;
+
+    /* JS sets this to flex when visible */
+    flex-direction: column;
+
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--bar-bgcolor);
+
+    /* border-radius: 10px; */
+    border-width: 4px;
+    border-style: solid;
+    border-color: #3399ff;
+
+    color: var(--default-font-color);
+    /* padding: 20px; */
+}
+
+#settings-modal #settings-banner {
+    order: 1;
+    margin: 0;
+    padding: 10px;
+    border-bottom: 4px solid var(--msg-break-color);
+}
+
+#settings-modal #settings-title {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+#settings-modal-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+
+    width: 20px;
+    height: 20px;
+    stroke: var(--default-accent-color);
+    stroke-width: 4px;
+}
+
+#settings-modal-close:hover {
+    stroke: var(--default-accent-color-alt);
+}
+
+#settings-modal .settings-category-header {
+    display: block;
+    border-bottom: 3px solid var(--msg-break-color);
+    color: var(--default-font-color);
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#settings-modal #settings-options {
+    order: 10;
+
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+    
+    overflow-y: scroll;
+    overflow-x: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* For Chrome, Safari, Opera - https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp */
+#settings-modal #settings-options::-webkit-scrollbar {
+    display: none;
+}
+
+/* Custom checkbox styling: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp 
+   Drawing in CSS: https://css-tricks.com/drawing-images-with-css-gradients/ */
+.settings-option-container {
+    display: block;
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 12px;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+
+    cursor: pointer;
+}
+
+/* Hide the default checkmark box */
+.settings-option-container input[type="checkbox"] {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.sub-option {
+    margin-left: 40px;
+}
+
+/* Create the custom checkmark (in this case, a slider switch) */
+.settings-option-container .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 16px;
+    background: 
+        radial-gradient(16px 16px at 8px 50%, var(--btn-bgcolor) 50%, transparent 50%),
+        linear-gradient(var(--default-font-color), var(--default-font-color)) 8px 50% / 16px 8px,
+        radial-gradient(8px 8px at 24px 50%, var(--default-font-color) 50%, transparent 50%);
+    background-repeat: no-repeat;
+}
+
+/* Mouse over, unchecked */
+.settings-option-container input[type="checkbox"]:hover ~ .checkmark {
+    background: 
+        radial-gradient(16px 16px at 8px 50%, var(--btn-bgcolor-active) 50%, transparent 50%),
+        linear-gradient(var(--default-font-color), var(--default-font-color)) 8px 50% / 16px 8px,
+        radial-gradient(8px 8px at 24px 50%, var(--default-font-color) 50%, transparent 50%);
+    background-repeat: no-repeat;
+}
+
+/* Checked = turn on switch */
+.settings-option-container input[type="checkbox"]:checked ~ .checkmark {
+    background: 
+        radial-gradient(16px 16px at 24px 50%, var(--default-accent-color) 50%, transparent 50%),
+        linear-gradient(var(--default-font-color), var(--default-font-color)) 8px 50% / 16px 8px,
+        radial-gradient(8px 8px at 8px 50%, var(--default-font-color) 50%, transparent 50%);
+    background-repeat: no-repeat;
+}
+
+/* Checked = turn on switch, hover */
+.settings-option-container input[type="checkbox"]:checked:hover ~ .checkmark {
+    background: 
+        radial-gradient(16px 16px at 24px 50%, var(--default-accent-color-alt) 50%, transparent 50%),
+        linear-gradient(var(--default-font-color), var(--default-font-color)) 8px 50% / 16px 8px,
+        radial-gradient(8px 8px at 8px 50%, var(--default-font-color) 50%, transparent 50%);
+    background-repeat: no-repeat;
+}
+
+/* disabled, unchecked */
+.settings-option-container input[type="checkbox"]:disabled ~ .checkmark {
+    background: 
+        radial-gradient(16px 16px at 8px 50%, var(--btn-bgcolor) 50%, transparent 50%),
+        linear-gradient(var(--btn-bgcolor-active), var(--btn-bgcolor-active)) 8px 50% / 16px 8px,
+        radial-gradient(8px 8px at 24px 50%, var(--btn-bgcolor-active) 50%, transparent 50%);
+    background-repeat: no-repeat;
+}
+
+/* disabled, checked */
+.settings-option-container input[type="checkbox"]:checked:disabled ~ .checkmark {
+    background: 
+        radial-gradient(16px 16px at 24px 50%, var(--btn-bgcolor) 50%, transparent 50%),
+        linear-gradient(var(--btn-bgcolor-active), var(--btn-bgcolor-active)) 8px 50% / 16px 8px,
+        radial-gradient(8px 8px at 8px 50%, var(--btn-bgcolor-active) 50%, transparent 50%);
+    background-repeat: no-repeat;
+}
+.settings-option-container.disabled-label {
+    text-decoration: line-through;
+    cursor: not-allowed;
+}
+
+@media only screen and (max-width: 550px) {
+    .navbar #nav-title {
+        display: none;
+    }
+
+    #logout-button {
+        padding: 10px;
+    }
+
+    .notification {
+        padding: 10px;
+    }
+
+    /* See below for .tags and .tags-container */
+    .tags-container {
+        display: block;
+        margin: -10px 0 5px 0;
+    }
+
+    #settings-modal {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media only screen and (max-height: 600px) {
+    .notification {
+        bottom: 60px;
+    }
+    #message-box, button#send-button {
+        height: 50px;
+    }
+    .message-container {
+        min-height: 55px;
+    }
+
+    #settings-modal {
+        width: 100%;
+        height: 100%;
+    }
+}
