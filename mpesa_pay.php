@@ -71,36 +71,37 @@
  while($row=mysqli_fetch_array($check)){
    $state=$row['status'];
  }
- if ($state == 'yes'){
+  if ($state == 'yes'){
    
-   if ($package == 300){
-     $rew = 150;
+   if ($package == 'bronze'){
+     $rew = $mop + 150;
    }
-   elseif($package == 600){
-     $rew = 300;
+   elseif($package == 'silver'){
+     $rew = $mop + 300;
    }
-   elseif($package==1000){
-     $rew=500;
+   elseif($package=='gold'){
+     $rew=$mop + 599;
    }
-   elseif($package==2000){
-     $rew=900;
+   elseif($package=='platinum'){
+     $rew=$mop + 1000;
    }
    
  }
  elseif($state=='part'){
    
-   if ($package == 300){
-     $rew = 100;
+   if ($package == 'bronze'){
+     $rew = $mop + 100;
    }
-   elseif($package == 600){
-     $rew = 250;
+   elseif($package == 'silver'){
+     $rew =$mop + 200;
    }
-   elseif($package==1000){
-     $rew=400;
+   elseif($package=='gold'){
+     $rew=$mop+400;
    }
-   elseif($package==2000){
-     $rew=800;
+   elseif($package=='platinum'){
+     $rew=$mop+789;
    }
+   
    
    
  }
@@ -285,23 +286,20 @@
  
  do  {
   
-   
-  
- 
-  $sqlo = mysqli_query($conn,"SELECT * FROM mpesa_payments WHERE MSISDN = '$phone' AND TransAmount = '$amount'");
+     $sqlo = mysqli_query($conn,"SELECT * FROM  stk_payments WHERE PhoneNumber = '$phone' AND amount = '$amount'");
   
   
   if (mysqli_num_rows($sqlo) > 0) {
- 
+
     
     
     $sql = "UPDATE users SET status ='yes' WHERE username='$username'";
- 
- if (mysqli_query($conn, $sql)) {
+
+if (mysqli_query($conn, $sql)) {
   
  if(!empty($ref)){
- $sqli = "INSERT INTO referral(sendingusername, newusername,bonus)
- VALUES ('$ref' , '$username','$rew')"; 
+   
+ $sqli= "UPDATE users SET bal ='$rew' WHERE username='$ref'";
  mysqli_query($conn, $sqli);
  }
  
@@ -312,10 +310,7 @@
  $_SESSION['status'] = 'yes';
  //header('location:index php');                                 
  
- echo'<script>window.location.replace("http://www.jijaze.epizy.com/index.php");</script>';
- 
-  
-  
+ echo'<script>window.location.replace("http://www.fidelityco.epizy.com/index.php");</script>';
  
  } else {
   echo "Error updating record 1: " . mysqli_error($conn);
